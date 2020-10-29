@@ -1,6 +1,6 @@
 package Assignment1SoftwareEng3.Eng3;
 
-import org.joda.time.DateTime;
+import java.util.ArrayList;
 
 public final class Student {
 
@@ -9,17 +9,20 @@ public final class Student {
     private String dob;
     private long id;
     private String username;
-    private String course;
-    private Module[] modules;
+	private ArrayList<String> moduleIds;
+	private ArrayList<String> courses;
 
-    public Student(String name,int age, String dob, long id, String username, String course)
+ 
+
+	public Student(String name,int age, String dob, long id)
     {
         this.name = name;
         this.age = age;
         this.dob = dob;
         this.id = id;
         this.username = name + age;
-        this.course = course;
+        this.moduleIds = new ArrayList<String>();
+    	this.courses = new ArrayList<String>();
         
     }
  
@@ -31,9 +34,6 @@ public final class Student {
             return getName() + getAge();
         }
 
-    public String getCourse() {
-            return course;
-        }
 
     public String getName() {
             return name;
@@ -62,14 +62,30 @@ public final class Student {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
+    public void setCourses(ArrayList<String> courses) {
+  		this.courses = courses;
+  	}
     
+   	public ArrayList<String> getCourses() {
+   		return courses;
+   	}
+   	
+   	public void addCourse(String courseId) {
+   		this.courses.add(courseId);
+   	}
+   	
+   	public void addModule(String moduleId) {
+   		this.moduleIds.add(moduleId);
+   	}
+
+    public ArrayList<String> getModules() {
+		return moduleIds;
+	}
+
+	public void setModules(ArrayList<String> moduleIds) {
+		this.moduleIds = moduleIds;
+	}
+  
     public String toString()
 	{
 		return getName() + ", " + getAge() + ", " + getDob() + ", " +  getId() + ", " + getUsername();

@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import org.joda.time.DateTime;
 import static org.junit.Assert.*;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest 
     extends TestCase
 {
@@ -19,66 +16,89 @@ public class AppTest
         assertTrue( true );
     }
     
+  
     public void testStudent()
     {
-        Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523, "Louisekilheeney28","Software Engineering 3");
+    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
+    	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654);
+    	
+    	DateTime start = new DateTime("2020-08-28");
+        DateTime end = new DateTime("2020-12-18");
+    	Course course = new Course("CS&IT", start, end);
+    	Module softwareEng3 = new Module("Soft_Eng 3", "CT4117");
 
         assertEquals("Name is incorrect", "LouiseKilheeney", student1.getName());
         assertEquals("Age is incorrect", 28, student1.getAge());
-        assertEquals("Username is incorrect", "LouiseKilheeney28", student1.getUsername());
         assertEquals("Date of Birth", "17/04/1992", student1.getDob());
         assertEquals("student Id no. is incorrect", 1234523, student1.getId());
-        assertEquals("Cousre is incorrect", "Software Engineering 3", student1.getCourse());
         
-        Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654, "JaneDoe18","Systems Modelling and Simulation");
-
         assertEquals("Name is incorrect", "JaneDoe", student2.getName());
         assertEquals("Age is incorrect", 18, student2.getAge());
-        assertEquals("Username is incorrect", "JaneDoe18", student2.getUsername());
         assertEquals("Date of Birth doesnt match expected", "17/04/1992", student2.getDob());
         assertEquals("student Id no. is incorrect", 987654, student2.getId());
-        assertEquals("Cousre is incorrect", "Systems Modelling and Simulation", student2.getCourse());
+        
+        assertEquals(0, student1.getCourses().size());
+        assertEquals(0, course.getStudentsEnrolled().size());
+        assertFalse(course.getStudentsEnrolled().contains(student1));
+        assertFalse(student1.getCourses().contains(course));
+
+        softwareEng3.addStudent(student1);
+        student1.addModule(softwareEng3.getId());
+        course.addModule(softwareEng3);
+        course.addStudent(student1);
+
+        assertEquals(1, student1.getCourses().size());
+        assertEquals(1, course.getStudentsEnrolled().size());
+        assertTrue(course.getStudentsEnrolled().contains(student1));
+
     }
+    
+    public void testGetUserName() {
+    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
+    	Student student2 = new Student("Jane Doe", 18, "17/04/1992", 987654);
+    	
+        assertEquals("LouiseKilheeney28", student1.getUsername());
+        assertEquals("Jane Doe18", student2.getUsername());
+    }
+    
+    public void testGetName() {
+    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
+    	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654);
+    	
+        assertEquals("LouiseKilheeney", student1.getName());
+        assertEquals("JaneDoe", student2.getName());
+    }
+    
 
     public void testModule()
     {
-    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523, "Louisekilheeney28","Software Engineering 3");
-    	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654, "JaneDoe18","Systems Modelling and Simulation");
+    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
     	
-        ArrayList<Student> students = new ArrayList<Student>();
-        students.add(student1);
-        students.add(student2);
-
-        Module module1 = new Module("Machine Learning", "CT4101", students);
-        assertEquals("Module name is incorrect", "Machine Learning", module1.getModuleName());
-        assertEquals("Module Code is incorrect", "CT4101", module1.getModuleId());
-        assertNotNull("Students are missing", module1.getStudents());
-
-    }
-
-    public void testProgrammeClass()
-    {
-    	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523, "Louisekilheeney28","Software Engineering 3");
-    	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654, "JaneDoe18","Systems Modelling and Simulation");
-    	
-        ArrayList<Student> students = new ArrayList<Student>();
-        students.add(student1);
-        students.add(student2);
+    	Module softwareEng3 = new Module("Soft_Eng 3", "CT4117");
+        Module module1 = new Module("Machine Learning", "CT4101");
+        assertEquals("Module name is incorrect", "Machine Learning", module1.getName());
+        assertEquals("Module Code is incorrect", "CT4101", module1.getId());
         
-        Module module1 = new Module("Machine Learning", "CT4101", students);
-        ArrayList<Module> module = new ArrayList<Module>();
-        module.add(module1);
-
         DateTime start = new DateTime("2020-08-28");
         DateTime end = new DateTime("2020-12-18");
-
-        ProgrammingClass course = new ProgrammingClass("CS&IT", module, students, start, end);
-        assertEquals("Course name is incorrect", "CS&IT", course.getCourseName());
-        assertNotNull("Module missing!", course.getCourseModules());
-        assertNotNull("Students are missing!", course.getStudentsEnrolled());
+        
+    	Course course = new Course("CS&IT", start, end);
+        assertEquals("Course name is incorrect", "CS&IT", course.getName());
         assertNotNull("Start time is missing", course.getStartDate());
         assertNotNull("End time is missing", course.getEndDate());
+
+        assertEquals(0, course.getmodules().size());
+        assertFalse(course.getmodules().contains(softwareEng3));
         
+        softwareEng3.addStudent(student1);
+        student1.addModule(softwareEng3.getId());
+        course.addModule(softwareEng3);
+        course.addStudent(student1);
+        
+        assertEquals(1, course.getmodules().size());
+        assertEquals(1, softwareEng3.getCourses().size());
+        assertTrue(course.getmodules().contains(softwareEng3));
+          
     }
 
 }
