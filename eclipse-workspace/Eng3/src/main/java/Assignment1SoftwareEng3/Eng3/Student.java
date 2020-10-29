@@ -12,8 +12,6 @@ public final class Student {
 	private ArrayList<String> moduleIds;
 	private ArrayList<String> courses;
 
- 
-
 	public Student(String name,int age, String dob, long id)
     {
         this.name = name;
