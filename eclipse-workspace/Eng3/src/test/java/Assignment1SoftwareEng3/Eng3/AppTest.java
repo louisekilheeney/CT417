@@ -12,13 +12,14 @@ public class AppTest
 {
     public void testApp()
     {
-    	System.out.println("working in here");
+    	System.out.println("testing");
         assertTrue( true );
     }
     
   
     public void testStudent()
     {
+    	System.out.println("Running test on Student");
     	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
     	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654);
     	
@@ -54,6 +55,7 @@ public class AppTest
     }
     
     public void testGetUserName() {
+    	System.out.println("Running test on username");
     	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
     	Student student2 = new Student("Jane Doe", 18, "17/04/1992", 987654);
     	
@@ -62,6 +64,7 @@ public class AppTest
     }
     
     public void testGetName() {
+    	System.out.println("Running test on name");
     	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
     	Student student2 = new Student("JaneDoe", 18, "17/04/1992", 987654);
     	
@@ -72,6 +75,7 @@ public class AppTest
 
     public void testModule()
     {
+    	System.out.println("Running test on Module");
     	Student student1 = new Student("LouiseKilheeney", 28, "17/04/1992", 1234523);
     	
     	Module softwareEng3 = new Module("Soft_Eng 3", "CT4117");
